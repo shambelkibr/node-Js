@@ -11,7 +11,7 @@ app.get("/about", (req, res) => {
   res.send("About page");
 });
 app.get("/contact", (req, res) => {
-  res.send("User Lists");
+  res.send("<h1>Hello Users</h1>");
 });
 
 app.get("/users", (req, res) => {
@@ -20,13 +20,20 @@ app.get("/users", (req, res) => {
     sucess: true,
   });
 });
+app.get("/logout", (req, res) => {
+  res.end();
+});
 
 app.get("/services", (req, res) => {
   res.status(200).json({
     users: ["sam", "sham", "alt"],
   });
-  
 });
+
+app.get("/help", (req, res) => {
+  res.json({ page: "contact" });
+});
+
 app.listen(2000, () => {
   console.log(`server is running on port ${2000}`);
 });
