@@ -34,6 +34,16 @@ app.get("/help", (req, res) => {
   res.json({ page: "contact" });
 });
 
+const employees = [
+  { id: 1, name: "Sara", role: "Developer" },
+  { id: 2, name: "John", role: "Designer" },
+  { id: 3, name: "Mike", role: "Manager" },
+];
+
+app.get("/employees", (req, res) => {
+  res.json({ employees });
+});
+
 app.listen(2000, () => {
   console.log(`server is running on port ${2000}`);
 });
