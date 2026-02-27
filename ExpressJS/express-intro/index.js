@@ -33,24 +33,33 @@ const PORT = 3000;
 //   });
 // });
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the Express server!");
+// app.get("/things/:name/:id", (req, res) => {
+//   const { name, id } = req.params;
+//   // Validate that id is exactly 5 digits
+//   if (!/^\d{5}$/.test(id)) {
+//     return res.status(400).json({
+//       error: "Invalid ID format please provide a valid ID",
+//       message: "ID must be exactly 5 digits",
+//     });
+//   }
+//   res.json({ name, id });
+// });
+
+// // FIXED: Changed from backticks `*` to quotes '*'
+// app.get("/*path", (req, res) => {
+//   res.send("404 Not Found");
+// });
+
+app.use((req, res, next) => {
+  console.log("Server is running now " + new Date(Date.now()));
+  next();
 });
 
-app.get("/things/:name/:id", (req, res) => {
-  const { name, id } = req.params;
-  // Validate that id is exactly 5 digits
-  if (!/^\d{5}$/.test(id)) {
-    return res.status(400).json({
-      error: "Invalid ID format plese provide a valid ID",
-      message: "ID must be exactly 5 digits",
-    });
-  }
-
-  res.json({ name, id });
+app.get("/", (req, res) => {
+  res.send(`Welcome to the Express server! This is the home page.`);
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log("node watch is watching for changes!"); // ADD THIS LINE
+  console.log("node watch is watching for changes!");
 });
