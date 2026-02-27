@@ -1,35 +1,56 @@
 import express from "express";
-// import { usernameController, searchController } from "./Day_2/controller.js";
 
-import router from "./Day_2/router.js";
 const app = express();
 const PORT = 3000;
 
+// import { usernameController, searchController } from "./Day_2/controller.js";
 // app.get("/users/:username", usernameController);
 // app.get("/search", searchController);
 
-app.use("/", router);
+// app.use(express.json());
+// import router from "./Day_2/routing.js";
+// app.use("/", router);
 
-app.post("/users", (req, res) => {
-  const { name, email } = req.body;
-  res.json({ message: `user ${name} with  email ${email}` });
+// app.post("/users", (req, res) => {
+//   const { name, email } = req.body;
+//   res.json({
+//     message: `User ${name} with email ${email} created successfully`,
+//   });
+// });
+
+// app.put(`/users/:id`, (req, res) => {
+//   const userId = req.params.id;
+//   const { name, email } = req.body;
+//   res.json({
+//     message: `User with id ${userId} updated to name ${name} and email ${email} successfully`,
+//   });
+// });
+
+// app.delete("/users/:id", (req, res) => {
+//   const userId = req.params.id;
+//   res.json({
+//     message: `User with id ${userId} deleted successfully`,
+//   });
+// });
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the Express server!");
+});
+
+app.get("/things/:name/:id", (req, res) => {
+  const { name, id } = req.params;
+  // Validate that id is exactly 5 digits
+  if (!/^\d{5}$/.test(id)) {
+    return res.status(400).json({
+      error: "Invalid ID format plese provide a valid ID",
+      message: "ID must be exactly 5 digits",
+    });
+  }
+
+  res.json({ name, id });
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log("node watch is watching for changes!"); // ADD THIS LINE
 });
-
-app.post("/users", (req, res) => {
-  const { name, email } = req.body;
-  res.json({
-    message: `user ${name} with  email ${email} created sucessfull `,
-  });
-});
-
-app.put("/users/:id", (req, res) => {
-  const userID = req.params.id;
-  const { name, email } = req.body;
-  res.json({
-    message: `user ${userID} updated to name ${name},${email}`,
-  });
-}); 

@@ -18,6 +18,7 @@ app.get("/users/:username", (req, res) => {
   res.send(`Hello ${username}`);
 });
 
+
 // Daynamic searching
 app.get("/search", (req, res) => {
   const qury = req.query.qury;
