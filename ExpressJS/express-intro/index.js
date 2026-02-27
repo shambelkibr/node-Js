@@ -56,27 +56,34 @@ const PORT = 3000;
 //   next();
 // });
 
-app.use((req, res, next) => {
-  console.log("Middleware executed for all routes");
-  res.on("finish", () => {
-    console.log("end");
-  });
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log("Middleware executed for all routes");
+//   res.on("finish", () => {
+//     console.log("end");
+//   });
+//   next();
+// });
 
-app.get("/error", (req, res, next) => {
-  throw new Error("Something went wrong!");
-});
+// app.get("/error", (req, res, next) => {
+//   throw new Error("Something went wrong!");
+// });
 
-app.use((err, req, res, next) => {
-  console.error(err.message);
-  res.send("An error occurred: " + err.message);
-});
+// app.use((err, req, res, next) => {
+//   console.error(err.message);
+//   res.send("An error occurred: " + err.message);
+// });
+
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  console.log("middle ware routing");
-  res.send(`Welcome to the Express server! This is the home page.`);
+  const userName = "Shanbel";
+  res.render("index", { userName });
 });
+
+// app.get("/", (req, res) => {
+//   console.log("middle ware routing");
+//   res.send(`Welcome to the Express server! This is the home page.`);
+// });
 
 // Middleware example for the /wellcame route
 // app.get("/wellcame", (req, res) => {
