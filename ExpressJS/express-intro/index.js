@@ -50,16 +50,39 @@ const PORT = 3000;
 //   res.send("404 Not Found");
 // });
 
+// Middleware example
+// app.use("/wellcame", (req, res, next) => {
+//   console.log("Server is running now " + new Date(Date.now()));
+//   next();
+// });
+
 app.use((req, res, next) => {
-  console.log("Server is running now " + new Date(Date.now()));
+  console.log("Middleware executed for all routes");
+  res.on("finish", () => {
+    console.log("end");
+  });
   next();
 });
 
+app.get("/error", (req, res, next) => {
+  throw new Error("Something went wrong!");
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.send("An error occurred: " + err.message);
+});
+
 app.get("/", (req, res) => {
+  console.log("middle ware routing");
   res.send(`Welcome to the Express server! This is the home page.`);
 });
 
+// Middleware example for the /wellcame route
+// app.get("/wellcame", (req, res) => {
+//   res.send(`Welcome to the Express server! This is the wellcome page.`);
+// });
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-  console.log("node watch is watching for changes!");
 });
